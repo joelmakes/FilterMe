@@ -22,7 +22,7 @@ if __name__ == "__main__":
     
     # Create and show your window
     window = FilterMe()
-    window.ui.show()
+    window.show()
     
     # Start the event loop (this keeps the window open until user hits closes)
     sys.exit(app.exec())

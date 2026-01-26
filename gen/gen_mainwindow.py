@@ -19,74 +19,85 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QStatusBar,
     QTabWidget, QVBoxLayout, QWidget)
 
-class Ui_Joel_Task(object):
-    def setupUi(self, Joel_Task):
-        if not Joel_Task.objectName():
-            Joel_Task.setObjectName(u"Joel_Task")
-        Joel_Task.resize(1084, 866)
-        Joel_Task.setMinimumSize(QSize(1084, 866))
-        Joel_Task.setStyleSheet(u"background-color: #2b2b2b;\n"
-"color: white;\n"
+class Ui_Filter_Me(object):
+    def setupUi(self, Filter_Me):
+        if not Filter_Me.objectName():
+            Filter_Me.setObjectName(u"Filter_Me")
+        Filter_Me.resize(1084, 866)
+        Filter_Me.setMinimumSize(QSize(1084, 866))
+        Filter_Me.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        Filter_Me.setStyleSheet(u"color: white;\n"
+"background-color: rgb(59, 59, 59);\n"
 "")
-        Joel_Task.setTabShape(QTabWidget.TabShape.Rounded)
-        self.centralwidget = QWidget(Joel_Task)
+        Filter_Me.setTabShape(QTabWidget.TabShape.Rounded)
+        self.centralwidget = QWidget(Filter_Me)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.verticalLayoutWidget = QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(0, 580, 1091, 111))
-        self.horizontalLayout = QHBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.webcam_Display = QLabel(self.centralwidget)
+        self.webcam_Display.setObjectName(u"webcam_Display")
+
+        self.verticalLayout.addWidget(self.webcam_Display)
+
+        self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.btn_rio = QPushButton(self.verticalLayoutWidget)
+        self.btn_rio = QPushButton(self.centralwidget)
         self.btn_rio.setObjectName(u"btn_rio")
 
         self.horizontalLayout.addWidget(self.btn_rio)
 
-        self.btn_sketch = QPushButton(self.verticalLayoutWidget)
+        self.btn_sketch = QPushButton(self.centralwidget)
         self.btn_sketch.setObjectName(u"btn_sketch")
 
         self.horizontalLayout.addWidget(self.btn_sketch)
 
-        self.btn_glasses = QPushButton(self.verticalLayoutWidget)
+        self.btn_glasses = QPushButton(self.centralwidget)
         self.btn_glasses.setObjectName(u"btn_glasses")
+        self.btn_glasses.setAutoDefault(False)
+        self.btn_glasses.setFlat(False)
 
         self.horizontalLayout.addWidget(self.btn_glasses)
 
-        self.verticalLayoutWidget_2 = QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
-        self.verticalLayoutWidget_2.setGeometry(QRect(0, 690, 1081, 161))
-        self.verticalLayout_2 = QVBoxLayout(self.verticalLayoutWidget_2)
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
+
+        self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.insert_username = QLineEdit(self.verticalLayoutWidget_2)
+        self.insert_username = QLineEdit(self.centralwidget)
         self.insert_username.setObjectName(u"insert_username")
+        self.insert_username.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
+"color: rgb(0, 0, 0);")
 
-        self.verticalLayout_2.addWidget(self.insert_username)
+        self.verticalLayout_2.addWidget(self.insert_username, 0, Qt.AlignmentFlag.AlignVCenter)
 
-        self.take_photo_button = QPushButton(self.verticalLayoutWidget_2)
+        self.take_photo_button = QPushButton(self.centralwidget)
         self.take_photo_button.setObjectName(u"take_photo_button")
 
         self.verticalLayout_2.addWidget(self.take_photo_button)
 
-        self.webcam_Display = QLabel(self.centralwidget)
-        self.webcam_Display.setObjectName(u"webcam_Display")
-        self.webcam_Display.setGeometry(QRect(18, 15, 1041, 561))
-        Joel_Task.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(Joel_Task)
+
+        self.verticalLayout.addLayout(self.verticalLayout_2)
+
+        Filter_Me.setCentralWidget(self.centralwidget)
+        self.statusbar = QStatusBar(Filter_Me)
         self.statusbar.setObjectName(u"statusbar")
-        Joel_Task.setStatusBar(self.statusbar)
+        Filter_Me.setStatusBar(self.statusbar)
 
-        self.retranslateUi(Joel_Task)
+        self.retranslateUi(Filter_Me)
 
-        QMetaObject.connectSlotsByName(Joel_Task)
+        self.btn_glasses.setDefault(False)
+
+
+        QMetaObject.connectSlotsByName(Filter_Me)
     # setupUi
 
-    def retranslateUi(self, Joel_Task):
-        Joel_Task.setWindowTitle(QCoreApplication.translate("Joel_Task", u"FilterMe", None))
-        self.btn_rio.setText(QCoreApplication.translate("Joel_Task", u"Rio de Janeiro", None))
-        self.btn_sketch.setText(QCoreApplication.translate("Joel_Task", u"Sketch", None))
-        self.btn_glasses.setText(QCoreApplication.translate("Joel_Task", u"Thug Life", None))
-        self.take_photo_button.setText(QCoreApplication.translate("Joel_Task", u"Take Picture", None))
-        self.webcam_Display.setText(QCoreApplication.translate("Joel_Task", u"TextLabel", None))
+    def retranslateUi(self, Filter_Me):
+        Filter_Me.setWindowTitle(QCoreApplication.translate("Filter_Me", u"FilterMe", None))
+        self.webcam_Display.setText(QCoreApplication.translate("Filter_Me", u"TextLabel", None))
+        self.btn_rio.setText(QCoreApplication.translate("Filter_Me", u"Rio de Janeiro", None))
+        self.btn_sketch.setText(QCoreApplication.translate("Filter_Me", u"Sketch", None))
+        self.btn_glasses.setText(QCoreApplication.translate("Filter_Me", u"Thug Life", None))
+        self.insert_username.setPlaceholderText(QCoreApplication.translate("Filter_Me", u"Enter Name Here", None))
+        self.take_photo_button.setText(QCoreApplication.translate("Filter_Me", u"Take Picture", None))
     # retranslateUi
 
