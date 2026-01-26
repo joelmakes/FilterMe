@@ -12,7 +12,7 @@
 import sys
 #import qt parts
 from PySide6.QtWidgets import QApplication
-# import the main window class that defines FilterMe
+# import the main window class that defines FilterMe from main_window.py
 from main_window import FilterMe
 
 #check if file is the main conducter
