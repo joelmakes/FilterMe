@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FilterMe</class>
- <widget class="QMainWindow" name="FilterMe">
+ <class>Joel_Task</class>
+ <widget class="QMainWindow" name="Joel_Task">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -42,21 +42,21 @@ background-color: rgb(59, 59, 59);
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton_rio">
+       <widget class="QPushButton" name="btn_rio">
         <property name="text">
          <string>Rio de Janeiro</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_sketch">
+       <widget class="QPushButton" name="btn_sketch">
         <property name="text">
          <string>Sketch</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_glasses">
+       <widget class="QPushButton" name="btn_glasses">
         <property name="text">
          <string>Thug Life</string>
         </property>
@@ -76,7 +76,7 @@ background-color: rgb(59, 59, 59);
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item alignment="Qt::AlignmentFlag::AlignVCenter">
-       <widget class="QLineEdit" name="lineEdit_insert_username">
+       <widget class="QLineEdit" name="insert_username">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 0, 0);</string>
@@ -87,7 +87,7 @@ color: rgb(0, 0, 0);</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_take_photo_button">
+       <widget class="QPushButton" name="take_photo_button">
         <property name="text">
          <string>Take Picture</string>
         </property>
