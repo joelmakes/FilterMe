@@ -96,7 +96,7 @@ class Ui_Filter_Me(object):
         self.webcam_Display.setText(QCoreApplication.translate("Filter_Me", u"TextLabel", None))
         self.btn_rio.setText(QCoreApplication.translate("Filter_Me", u"Rio de Janeiro", None))
         self.btn_sketch.setText(QCoreApplication.translate("Filter_Me", u"Sketch", None))
-        self.btn_glasses.setText(QCoreApplication.translate("Filter_Me", u"Thug Life", None))
+        self.btn_glasses.setText(QCoreApplication.translate("Filter_Me", u"Bug Life", None))
         self.insert_username.setPlaceholderText(QCoreApplication.translate("Filter_Me", u"Enter Name Here", None))
         self.take_photo_button.setText(QCoreApplication.translate("Filter_Me", u"Take Picture", None))
     # retranslateUi
