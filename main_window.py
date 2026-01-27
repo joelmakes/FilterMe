@@ -4,12 +4,14 @@
 #Run Window- python main.py
 
 #import style classes (from generated main window file)
-from gen.gen_mainwindow import Ui_Filter_Me
+from gen.gen_main_window import Ui_Filter_Me
+
 #import qt main window (class that creates the window)
 from PySide6.QtWidgets import QMainWindow
 
 #inherit from Qmaninwindow to customezie, and add functionality
 class FilterMe(QMainWindow):
+
     #defnie the constructor as self
     def __init__(self):
         # Call the QmainWindow constructor
