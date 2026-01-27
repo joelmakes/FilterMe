@@ -3,6 +3,11 @@
 #MediaPipe - the brain behind the glasses filter an AI library that detects where the face is and allows the filter to be placed on the user's face
 #Run Window- python main.py
 
+#use library functions sys.exit
+import sys  
+#import to acess webcam and image processing
+import cv2
+
 #import style classes (from generated main window file)
 from gen.gen_main_window import Ui_Filter_Me
 

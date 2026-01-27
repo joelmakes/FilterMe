@@ -9,4 +9,6 @@ import os
 uic  = os.path.join(os.path.dirname(sys.executable), 'PySide6-uic.exe')
 
 #set ui file (using file name) to py file (given name)
+#TO DO: Ignore gen files and remove from git (generated code files not needed)
+#NOTE: remember to push at least more than once to show activity on github
 subprocess.run([uic, 'Form/main_window.ui', '-o', 'gen/gen_main_window.py'])
