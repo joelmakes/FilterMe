@@ -34,13 +34,20 @@ class Ui_Filter_Me(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setSpacing(0)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(30, 30, 30, 30)
         self.webcam_Display = QLabel(self.centralwidget)
         self.webcam_Display.setObjectName(u"webcam_Display")
         self.webcam_Display.setAutoFillBackground(False)
         self.webcam_Display.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "color: rgb(0, 0, 0);")
 
-        self.verticalLayout.addWidget(self.webcam_Display)
+        self.horizontalLayout_5.addWidget(self.webcam_Display)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_5)
 
         self.widget_main = QWidget(self.centralwidget)
         self.widget_main.setObjectName(u"widget_main")
@@ -95,7 +102,7 @@ class Ui_Filter_Me(object):
         self.horizontalLayout_2.setContentsMargins(-1, 0, -1, 0)
         self.insert_username = QLineEdit(self.widget_main)
         self.insert_username.setObjectName(u"insert_username")
-        self.insert_username.setMaximumSize(QSize(1200, 100))
+        self.insert_username.setMaximumSize(QSize(1300, 100))
         self.insert_username.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "color: rgb(0, 0, 0);")
 
@@ -109,7 +116,7 @@ class Ui_Filter_Me(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.take_photo_button = QPushButton(self.widget_main)
         self.take_photo_button.setObjectName(u"take_photo_button")
-        self.take_photo_button.setMaximumSize(QSize(1200, 40))
+        self.take_photo_button.setMaximumSize(QSize(1300, 40))
 
         self.horizontalLayout_4.addWidget(self.take_photo_button)
 
@@ -123,8 +130,6 @@ class Ui_Filter_Me(object):
         self.verticalLayout.addWidget(self.widget_main)
 
         Filter_Me.setCentralWidget(self.centralwidget)
-        self.webcam_Display.raise_()
-        self.widget_main.raise_()
         self.statusbar = QStatusBar(Filter_Me)
         self.statusbar.setObjectName(u"statusbar")
         Filter_Me.setStatusBar(self.statusbar)

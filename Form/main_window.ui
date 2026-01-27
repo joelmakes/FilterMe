@@ -33,18 +33,37 @@ background-color: rgb(59, 59, 59);
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="webcam_Display">
-      <property name="autoFillBackground">
-       <bool>false</bool>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <property name="spacing">
+       <number>0</number>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="topMargin">
+       <number>30</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
+      <property name="bottomMargin">
+       <number>30</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="webcam_Display">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QWidget" name="widget_main" native="true">
@@ -160,7 +179,7 @@ color: rgb(0, 0, 0);</string>
             <widget class="QLineEdit" name="insert_username">
              <property name="maximumSize">
               <size>
-               <width>1200</width>
+               <width>1300</width>
                <height>100</height>
               </size>
              </property>
@@ -184,7 +203,7 @@ color: rgb(0, 0, 0);</string>
             <widget class="QPushButton" name="take_photo_button">
              <property name="maximumSize">
               <size>
-               <width>1200</width>
+               <width>1300</width>
                <height>40</height>
               </size>
              </property>
@@ -201,8 +220,6 @@ color: rgb(0, 0, 0);</string>
      </widget>
     </item>
    </layout>
-   <zorder>webcam_Display</zorder>
-   <zorder>widget_main</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
