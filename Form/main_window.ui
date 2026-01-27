@@ -58,7 +58,7 @@ background-color: rgb(59, 59, 59);
       <item>
        <widget class="QPushButton" name="btn_glasses">
         <property name="text">
-         <string>Thug Life</string>
+         <string>Bug Life</string>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
