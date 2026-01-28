@@ -13,3 +13,6 @@ __pycache__/
 captures/
 *.jpg
 *.png
+
+# Ignore gen folder
+gen/
