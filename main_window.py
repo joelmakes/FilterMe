@@ -42,7 +42,8 @@ class FilterMe(QMainWindow):
         self.timer.timeout.connect(self.update_frame)
          # Update every 30 milliseconds
         self.timer.start(30) 
-    
+
+    #current ISSUES: camera is not filling the entire qLabel area 
     def update_frame(self):
         # Get a new image from the webcam
         ret, frame = self.cap.read()
@@ -58,4 +59,4 @@ class FilterMe(QMainWindow):
             # Make a QPixmap from the QImage so we can show it in a label
             pixmap = QPixmap.fromImage(qt_image)
             # Show the image in the label on the window (change 'video_label' to your label's name)
-            self.ui.webcam_Display.setPixmap(pixmap)
+            self.ui.webcam_display.setPixmap(pixmap)
