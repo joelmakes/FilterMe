@@ -34,27 +34,31 @@ class FilterMe(QMainWindow):
         # Start the webcam (camera 0 is the default camera)
         self.cap = cv2.VideoCapture(0)
 
-        # Get camera aspect ratio
-        ret, frame = self.cap.read()
-        if ret:
-            h, w, _ = frame.shape
-            self.aspect_ratio = w / h
-        else:
-            self.aspect_ratio = 16/9  # fallback
-
-        # Replace webcam_display with AspectRatioLabel
-        parent = self.ui.webcam_display.parent()
-        geometry = self.ui.webcam_display.geometry()
-        self.ui.webcam_display.deleteLater()
-        self.ui.webcam_display = AspectRatioLabel(self.aspect_ratio, parent)
-        self.ui.webcam_display.setGeometry(geometry)
-
         #create a timer to update frames
         self.timer = QTimer()
         # When the timer finishes, run the update_frame function
         self.timer.timeout.connect(self.update_frame)
         # Update every 30 milliseconds (about 33fps)
         self.timer.start(30)
+
+        # Get camera aspect ratio
+        ret, frame = self.cap.read()
+        if ret:
+            h, w, _ = frame.shape
+            if h > 0:
+                self.aspect_ratio = w / h
+            else:
+                self.aspect_ratio = 16/9  # fallback
+        else:
+            self.aspect_ratio = 16/9  # fallback
+
+        # Replace webcam_display with AspectRatioLabel
+        parent = self.ui.webcam_display.parent()
+        geometry = self.ui.webcam_display.geometry()
+        print("Parent:", parent)
+        print("Geometry:", geometry)
+        self.ui.webcam_display = AspectRatioLabel(self.aspect_ratio, parent)
+        self.ui.webcam_display.setGeometry(geometry)
 
     def update_frame(self):
         # Get a new image from the webcam
