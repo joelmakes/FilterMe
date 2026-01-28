@@ -3,19 +3,17 @@
 #MediaPipe - the brain behind the glasses filter an AI library that detects where the face is and allows the filter to be placed on the user's face
 #Run Window- python main.py
 
-#use library functions sys.exit
-import sys  
 #import to acess webcam and image processing
 import cv2
 
 #import style classes (from generated main window file)
 from gen.gen_main_window import Ui_Filter_Me
 #import qt timer to create a timer for webcam frames
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, Qt
 #import qt image(to comvert frames to qt) and pixmap(to set qtframes to qlabel) to show images in labels
 from PySide6.QtGui import QImage, QPixmap
 #import qt main window (class that creates the window)
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QMainWindow, QLabel
 
 #inherit from Qmaninwindow to customezie, and add functionality
 class FilterMe(QMainWindow):
@@ -36,27 +34,52 @@ class FilterMe(QMainWindow):
         # Start the webcam (camera 0 is the default camera)
         self.cap = cv2.VideoCapture(0)
 
+        # Get camera aspect ratio
+        ret, frame = self.cap.read()
+        if ret:
+            h, w, _ = frame.shape
+            self.aspect_ratio = w / h
+        else:
+            self.aspect_ratio = 16/9  # fallback
+
+        # Replace webcam_display with AspectRatioLabel
+        parent = self.ui.webcam_display.parent()
+        geometry = self.ui.webcam_display.geometry()
+        self.ui.webcam_display.deleteLater()
+        self.ui.webcam_display = AspectRatioLabel(self.aspect_ratio, parent)
+        self.ui.webcam_display.setGeometry(geometry)
+
         #create a timer to update frames
         self.timer = QTimer()
         # When the timer finishes, run the update_frame function
         self.timer.timeout.connect(self.update_frame)
-         # Update every 30 milliseconds
-        self.timer.start(30) 
+        # Update every 30 milliseconds (about 33fps)
+        self.timer.start(30)
 
-    #current ISSUES: camera is not filling the entire qLabel area 
     def update_frame(self):
         # Get a new image from the webcam
         ret, frame = self.cap.read()
         if ret:
-            # Change the image from BGR (used by OpenCV) to RGB (used by Qt)
+            # Convert BGR to RGB
             rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            # Get the height, width, and number of color channels of the image
             h, w, ch = rgb_image.shape
-            # Calculate how many bytes are in one line of the image
             bytes_per_line = ch * w
-            # Make a QImage from the image data so Qt can use it
             qt_image = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
-            # Make a QPixmap from the QImage so we can show it in a label
             pixmap = QPixmap.fromImage(qt_image)
-            # Show the image in the label on the window (change 'video_label' to your label's name)
-            self.ui.webcam_display.setPixmap(pixmap)
+            # Scale pixmap to fit label while keeping aspect ratio
+            scaled_pixmap = pixmap.scaled(self.ui.webcam_display.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            self.ui.webcam_display.setPixmap(scaled_pixmap)
+
+# Custom QLabel to maintain aspect ratio
+class AspectRatioLabel(QLabel):
+    def __init__(self, aspect_ratio=16/9, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.aspect_ratio = aspect_ratio
+
+    def resizeEvent(self, event):
+        w = self.width()
+        h = int(w / self.aspect_ratio)
+        if h > self.height():
+            h = self.height()
+            w = int(h * self.aspect_ratio)
+        super().resizeEvent(event)
