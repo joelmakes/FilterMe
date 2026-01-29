@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1084</width>
-    <height>866</height>
+    <height>900</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1084</width>
-    <height>866</height>
+    <width>1000</width>
+    <height>900</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -85,8 +85,8 @@ background-color: rgb(59, 59, 59);
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(0, 0, 0);</string>
+         <string notr="true">background-color: rgb(59, 59, 59);
+</string>
         </property>
         <property name="text">
          <string/>
@@ -98,7 +98,7 @@ color: rgb(0, 0, 0);</string>
          <bool>false</bool>
         </property>
         <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignJustify|Qt::AlignmentFlag::AlignVCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -144,6 +144,12 @@ color: rgb(0, 0, 0);</string>
             </property>
             <item>
              <widget class="QPushButton" name="button_rio">
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>40</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>400</width>
@@ -157,6 +163,12 @@ color: rgb(0, 0, 0);</string>
             </item>
             <item>
              <widget class="QPushButton" name="button_sketch">
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>40</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>400</width>
@@ -170,6 +182,12 @@ color: rgb(0, 0, 0);</string>
             </item>
             <item>
              <widget class="QPushButton" name="button_glasses">
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>40</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>400</width>
@@ -216,6 +234,12 @@ color: rgb(0, 0, 0);</string>
            </property>
            <item>
             <widget class="QLineEdit" name="QLineEdit_insert_username">
+             <property name="minimumSize">
+              <size>
+               <width>800</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>1300</width>
@@ -239,7 +263,13 @@ color: rgb(0, 0, 0);</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QPushButton" name="button_take_photo_button">
+            <widget class="QPushButton" name="button_take_photo">
+             <property name="minimumSize">
+              <size>
+               <width>800</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>1300</width>
