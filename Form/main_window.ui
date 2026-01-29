@@ -43,6 +43,12 @@ background-color: rgb(59, 59, 59);
    <enum>QTabWidget::TabShape::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -62,7 +68,7 @@ background-color: rgb(59, 59, 59);
        <number>30</number>
       </property>
       <item>
-       <widget class="QLabel" name="webcam_display">
+       <widget class="QLabel" name="QLabel_webcam_display">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -137,7 +143,7 @@ color: rgb(0, 0, 0);</string>
              <number>10</number>
             </property>
             <item>
-             <widget class="QPushButton" name="btn_rio">
+             <widget class="QPushButton" name="button_rio">
               <property name="maximumSize">
                <size>
                 <width>400</width>
@@ -209,7 +215,7 @@ color: rgb(0, 0, 0);</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QLineEdit" name="insert_username">
+            <widget class="QLineEdit" name="QLineEdit_insert_username">
              <property name="maximumSize">
               <size>
                <width>1300</width>
@@ -233,7 +239,7 @@ color: rgb(0, 0, 0);</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QPushButton" name="take_photo_button">
+            <widget class="QPushButton" name="button_take_photo_button">
              <property name="maximumSize">
               <size>
                <width>1300</width>
