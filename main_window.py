@@ -37,11 +37,9 @@ class FilterMe(QMainWindow):
         self.filters = Filters()
 
         #once rio button is clicked, run apply_grayscale_filter function from filters.py
-        self.ui.button_riot.clicked.connect(self.apply_grayscale_filter)
-
-        # function switches camera tograyscale
-        def apply_grayscale_filter(self):
-            self.current_filter = self.filters.apply_grayscale
+        self.ui.button_rio.clicked.connect(self.apply_grayscale_filter)
+        #once sequoia button is clicked, run apply_sequoia_filter function from filters.py
+       #self.ui.button_sequoia.clicked.connect(self.apply_sequoia_filter)
 
         # Start the webcam (camera 0 is the default camera)
         self.cap = cv2.VideoCapture(0)
@@ -66,18 +64,26 @@ class FilterMe(QMainWindow):
 
         # Replace webcam_display with AspectRatioLabel
         #save parent of the qlabel to display on
-        parent = self.ui.webcam_display.parent()
-        #get the geometry from the q label
-        geometry = self.ui.webcam_display.geometry()
-        print("Parent:", parent)
-        print("Geometry:", geometry)
-        self.ui.webcam_display = AspectRatioLabel(self.aspect_ratio, parent)
-        self.ui.webcam_display.setGeometry(geometry)
+        # parent = self.ui.QLabel_webcam_display.parent()
+        # #get the geometry from the q label
+        # geometry = self.ui.QLabel_webcam_display.geometry()
+
+        # print("Parent:", parent)
+        # print("Geometry:", geometry)
+        # self.ui.QLabel_webcam_display = AspectRatioLabel(self.aspect_ratio, parent)
+        # self.ui.QLabel_webcam_display.setGeometry(geometry)
+    
+      #apply grayscale filter function
+    def apply_grayscale_filter(self):
+        self.current_filter = self.filters.apply_grayscale
 
     def update_frame(self):
         # Get a new image from the webcam
         ret, frame = self.cap.read()
         if ret:
+                # Apply current filter if set
+            if hasattr(self, 'current_filter') and self.current_filter:
+                frame = self.current_filter(frame)
             # Convert BGR to RGB
             rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             h, w, ch = rgb_image.shape
@@ -85,12 +91,10 @@ class FilterMe(QMainWindow):
             qt_image = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
             pixmap = QPixmap.fromImage(qt_image)
             # Scale pixmap to fit label while keeping aspect ratio
-            scaled_pixmap = pixmap.scaled(self.ui.webcam_display.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            self.ui.webcam_display.setPixmap(scaled_pixmap)
-        
-            # Apply current filter if set
-        if hasattr(self, 'current_filter') and self.current_filter:
-            frame = self.current_filter(frame)
+            scaled_pixmap = pixmap.scaled(self.ui.QLabel_webcam_display.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            self.ui.QLabel_webcam_display.setPixmap(scaled_pixmap)
+
+  
 
 # Custom QLabel to maintain aspect ratio
 class AspectRatioLabel(QLabel):
