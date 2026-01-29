@@ -5,6 +5,8 @@
 
 #import to acess webcam and image processing
 import cv2
+#manage file paths for pictures
+from pathlib import Path
 
 #import style classes (from generated main window file)
 from gen.gen_main_window import Ui_Filter_Me
@@ -39,7 +41,9 @@ class FilterMe(QMainWindow):
         #once rio button is clicked, run apply_grayscale_filter function from filters.py
         self.ui.button_rio.clicked.connect(self.apply_grayscale_filter)
         #once sequoia button is clicked, run apply_sequoia_filter function from filters.py
-       #self.ui.button_sequoia.clicked.connect(self.apply_sequoia_filter)
+        self.ui.button_sketch.clicked.connect(self.apply_sequoia_filter)
+
+        self.ui.button_take_picture.clicked.connect(self.take_picture)
 
         # Start the webcam (camera 0 is the default camera)
         self.cap = cv2.VideoCapture(0)
@@ -61,21 +65,13 @@ class FilterMe(QMainWindow):
                 self.aspect_ratio = 16/9  # fallback
         else:
             self.aspect_ratio = 16/9  # fallback
-
-        # Replace webcam_display with AspectRatioLabel
-        #save parent of the qlabel to display on
-        # parent = self.ui.QLabel_webcam_display.parent()
-        # #get the geometry from the q label
-        # geometry = self.ui.QLabel_webcam_display.geometry()
-
-        # print("Parent:", parent)
-        # print("Geometry:", geometry)
-        # self.ui.QLabel_webcam_display = AspectRatioLabel(self.aspect_ratio, parent)
-        # self.ui.QLabel_webcam_display.setGeometry(geometry)
     
       #apply grayscale filter function
     def apply_grayscale_filter(self):
         self.current_filter = self.filters.apply_grayscale
+
+    def apply_sequoia_filter(self):
+        self.current_filter = self.filters.apply_sepia
 
     def update_frame(self):
         # Get a new image from the webcam
@@ -93,6 +89,33 @@ class FilterMe(QMainWindow):
             # Scale pixmap to fit label while keeping aspect ratio
             scaled_pixmap = pixmap.scaled(self.ui.QLabel_webcam_display.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
             self.ui.QLabel_webcam_display.setPixmap(scaled_pixmap)
+    
+    def take_picture(self):
+    # Get the current frame
+        ret, frame = self.cap.read()
+        if not ret:
+            return  # Optionally show an error message
+
+        # Get the user name from the text input
+        user_name = self.ui.lineEdit_user_name.text().strip()
+        if not user_name:
+            user_name = "user"
+
+        # Sanitize filename
+        safe_name = "".join(c for c in user_name if c.isalnum() or c in (' ', '_', '-')).rstrip()
+        filename = f"{safe_name}.png"
+
+        # Get Pictures directory or fallback to home
+        pictures_dir = Path.home() / "Pictures"
+        if not pictures_dir.exists():
+            pictures_dir = Path.home()
+        save_path = pictures_dir / filename
+
+        # Save the image
+        cv2.imwrite(str(save_path), frame)
+
+        # Optionally, show a message or open the folder
+        print(f"Saved picture to: {save_path}")
 
   
 
