@@ -14,6 +14,8 @@ from PySide6.QtCore import QTimer, Qt
 from PySide6.QtGui import QImage, QPixmap
 #import qt main window (class that creates the window)
 from PySide6.QtWidgets import QMainWindow, QLabel
+#import filter functionality from filters.py
+from filters import Filters
 
 #inherit from Qmaninwindow to customezie, and add functionality
 class FilterMe(QMainWindow):
@@ -30,6 +32,16 @@ class FilterMe(QMainWindow):
 
         # set window title using self ( self = window UI)
         self.setWindowTitle("FilterMe - Beta Edition")
+
+        #create a way to access filters class from filters.py
+        self.filters = Filters()
+
+        #once rio button is clicked, run apply_grayscale_filter function from filters.py
+        self.ui.button_riot.clicked.connect(self.apply_grayscale_filter)
+
+        # function switches camera tograyscale
+        def apply_grayscale_filter(self):
+            self.current_filter = self.filters.apply_grayscale
 
         # Start the webcam (camera 0 is the default camera)
         self.cap = cv2.VideoCapture(0)
@@ -53,7 +65,9 @@ class FilterMe(QMainWindow):
             self.aspect_ratio = 16/9  # fallback
 
         # Replace webcam_display with AspectRatioLabel
+        #save parent of the qlabel to display on
         parent = self.ui.webcam_display.parent()
+        #get the geometry from the q label
         geometry = self.ui.webcam_display.geometry()
         print("Parent:", parent)
         print("Geometry:", geometry)
@@ -73,6 +87,10 @@ class FilterMe(QMainWindow):
             # Scale pixmap to fit label while keeping aspect ratio
             scaled_pixmap = pixmap.scaled(self.ui.webcam_display.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
             self.ui.webcam_display.setPixmap(scaled_pixmap)
+        
+            # Apply current filter if set
+        if hasattr(self, 'current_filter') and self.current_filter:
+            frame = self.current_filter(frame)
 
 # Custom QLabel to maintain aspect ratio
 class AspectRatioLabel(QLabel):
