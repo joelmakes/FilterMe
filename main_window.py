@@ -99,14 +99,18 @@ class FilterMe(QMainWindow):
 
     #change opencv frame to qt pixmap (taking in picture frame, QLabel size on qt designer)
     def frame_to_pixmap(self, frame, size=None):
+        # Convert the OpenCV image (BGR) to RGB because Qt expects RGB format
         rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        h, w, ch = rgb_image.shape
-        bytes_per_line = ch * w
+        h, w, ch = rgb_image.shape  # Get the image height, width, and number of color channels
+        bytes_per_line = ch * w  # Calculate how many bytes each row of the image takes
+        # Create a QImage from the RGB image data so it can be used in Qt
         qt_image = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
+        # Convert the QImage to a QPixmap, which can be shown in a QLabel
         pixmap = QPixmap.fromImage(qt_image)
         if size:
+            # If a size is given, scale the pixmap to fit while keeping the aspect ratio and smoothing the image
             pixmap = pixmap.scaled(size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        return pixmap
+        return pixmap  # Return the final pixmap to be displayed
 
 
     def show_preview_page(self):
@@ -130,32 +134,40 @@ class FilterMe(QMainWindow):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_prev)
 
     def save_preview_image(self):
+        # Check if there is a preview frame to save
         if not hasattr(self, 'preview_frame'):
             return
-        
-        frame = self.preview_frame
+    
+        frame = self.preview_frame  # The image to save
+
+        # Get the username from the text box and remove spaces at the ends
         user_name = self.ui.QLineEdit_insert_username.text().strip()
 
+        # If the user didn't enter a name, use a default name
         if not user_name:
             user_name = "FilterMe_Photo"
 
+        # Make the filename safe: only allow letters, numbers, spaces, underscores, and dashes
         safe_name = "".join(c for c in user_name if c.isalnum() or c in (' ', '_', '-')).rstrip()
-        filename = f"{safe_name}.png"
-        pictures_dir = Path.home() / "Pictures"
+        filename = f"{safe_name}.png"  # Add .png extension
 
+        # Set the save location to the user's Pictures folder
+        pictures_dir = Path.home() / "Pictures"
+        # If the Pictures folder doesn't exist, use the home folder instead
         if not pictures_dir.exists():
             pictures_dir = Path.home()
 
-        save_path = pictures_dir / filename
-        cv2.imwrite(str(save_path), frame)
+        save_path = pictures_dir / filename  # Full path to save the image
+        cv2.imwrite(str(save_path), frame)  # Save the image using OpenCV
         print(f"Saved picture to: {save_path}")
         
-        # clear the username label before returnin to home page
+        # Clear the username input box after saving
         self.ui.QLineEdit_insert_username.clear()
-        # Switch back to home/camera page
+        # Switch back to the home/camera page
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
 
     def delete_preview_image(self):
+        # Clear the stored preview from preview frame
         self.preview_frame = None
         # clear the username label before returnin to home page
         self.ui.QLineEdit_insert_username.clear()
@@ -167,13 +179,17 @@ class FilterMe(QMainWindow):
 # Custom QLabel to maintain aspect ratio
 class AspectRatioLabel(QLabel):
     def __init__(self, aspect_ratio=16/9, *args, **kwargs):
+        # Call the QLabel constructor and set the aspect ratio (default is 16:9)
         super().__init__(*args, **kwargs)
-        self.aspect_ratio = aspect_ratio
+        self.aspect_ratio = aspect_ratio  # Store the desired aspect ratio
 
     def resizeEvent(self, event):
-        w = self.width()
-        h = int(w / self.aspect_ratio)
+        # This function is called whenever the label is resized
+        w = self.width()  # Get the current width of the label
+        h = int(w / self.aspect_ratio)  # Calculate the height based on the aspect ratio
         if h > self.height():
+            # If the calculated height is too big, adjust width instead
             h = self.height()
             w = int(h * self.aspect_ratio)
+        # Call the original resizeEvent to handle the rest
         super().resizeEvent(event)
