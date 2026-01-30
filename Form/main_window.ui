@@ -6,14 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1164</width>
-    <height>866</height>
+    <width>1084</width>
+    <height>900</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1084</width>
-    <height>866</height>
+    <width>1000</width>
+    <height>900</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -31,6 +43,12 @@ background-color: rgb(59, 59, 59);
    <enum>QTabWidget::TabShape::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -50,19 +68,34 @@ background-color: rgb(59, 59, 59);
        <number>30</number>
       </property>
       <item>
-       <widget class="QLabel" name="webcam_display">
+       <widget class="QLabel" name="QLabel_webcam_display">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="autoFillBackground">
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(0, 0, 0);</string>
+         <string notr="true">background-color: rgb(59, 59, 59);
+</string>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
         <property name="textFormat">
          <enum>Qt::TextFormat::RichText</enum>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
         </property>
         <property name="alignment">
          <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -110,7 +143,13 @@ color: rgb(0, 0, 0);</string>
              <number>10</number>
             </property>
             <item>
-             <widget class="QPushButton" name="btn_rio">
+             <widget class="QPushButton" name="button_rio">
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>40</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>400</width>
@@ -124,6 +163,12 @@ color: rgb(0, 0, 0);</string>
             </item>
             <item>
              <widget class="QPushButton" name="button_sketch">
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>40</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>400</width>
@@ -137,6 +182,12 @@ color: rgb(0, 0, 0);</string>
             </item>
             <item>
              <widget class="QPushButton" name="button_glasses">
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>40</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>400</width>
@@ -182,7 +233,13 @@ color: rgb(0, 0, 0);</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QLineEdit" name="insert_username">
+            <widget class="QLineEdit" name="QLineEdit_insert_username">
+             <property name="minimumSize">
+              <size>
+               <width>800</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>1300</width>
@@ -206,7 +263,13 @@ color: rgb(0, 0, 0);</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QPushButton" name="take_photo_button">
+            <widget class="QPushButton" name="button_take_photo">
+             <property name="minimumSize">
+              <size>
+               <width>800</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
                <width>1300</width>
