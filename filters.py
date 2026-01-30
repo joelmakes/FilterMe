@@ -29,6 +29,15 @@ class Filters():
         # 0.7 means the original image is stronger, 0.3 means the gradient is lighter.
         blended = cv2.addWeighted(frame, 0.7, gradient, 0.3, 0)
 
+        # Add text label to the image
+        text = "Rio De Janeiro"
+        position = (200, 300)  # x, y coordinates
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        font_scale = 1
+        color = (255, 255, 255)  # White text in BGR
+        thickness = 1
+        cv2.putText(blended, text, position, font, font_scale, color, thickness, cv2.LINE_AA)
+
         return blended
 
     # This function makes the image look like a pencil sketch.
