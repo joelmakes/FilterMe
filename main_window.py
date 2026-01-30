@@ -1,6 +1,6 @@
 #Pyside6 - responsible for generrating the window and everything inside
 #OpenCV - open source computer vision used to generate images and the webcame to use the device camera
-#MediaPipe - the brain behind the glasses filter an AI library that detects where the face is and allows the filter to be placed on the user's face
+#OpenCV-Contrib - additional modules for OpenCV including the pencil sketch filter
 #Run Window- python main.py
 
 #import to acess webcam and image processing
@@ -46,6 +46,9 @@ class FilterMe(QMainWindow):
         #once sketch button is clicked, run apply_sketch_filter function from filters.py
         self.ui.button_sketch.clicked.connect(self.apply_sketch_filter)
 
+        # When the user clicks the reset button in the UI, this will call self.reset_filter(),
+        self.ui.button_reset.clicked.connect(self.reset_filter)
+
         # Connect take photo button to show preview page
         self.ui.button_take_photo.clicked.connect(self.show_preview_page)
 
@@ -84,6 +87,9 @@ class FilterMe(QMainWindow):
     #apply sketch filter function
     def apply_sketch_filter(self):
         self.current_filter = self.filters.apply_sketch
+    #reset filter function
+    def reset_filter(self):
+        self.current_filter = None
 
     def update_frame(self):
         # Get a new image from the webcam
