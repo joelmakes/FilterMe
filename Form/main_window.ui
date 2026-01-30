@@ -59,9 +59,9 @@ background-color: rgb(59, 59, 59);
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="page_23">
+      <widget class="QWidget" name="page_home">
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -155,34 +155,6 @@ background-color: rgb(59, 59, 59);
                 <property name="bottomMargin">
                  <number>10</number>
                 </property>
-                <item>
-                 <widget class="QPushButton" name="button_glasses">
-                  <property name="minimumSize">
-                   <size>
-                    <width>300</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>400</width>
-                    <height>50</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>Thug Life</string>
-                  </property>
-                  <property name="autoDefault">
-                   <bool>false</bool>
-                  </property>
-                  <property name="default">
-                   <bool>false</bool>
-                  </property>
-                  <property name="flat">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
                 <item>
                  <widget class="QPushButton" name="button_rio">
                   <property name="minimumSize">
@@ -303,10 +275,13 @@ color: rgb(0, 0, 0);</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_24">
+      <widget class="QWidget" name="page_prev">
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <property name="spacing">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QWidget" name="widget_photo_display" native="true">
             <property name="maximumSize">
@@ -318,6 +293,9 @@ color: rgb(0, 0, 0);</string>
             <layout class="QHBoxLayout" name="horizontalLayout_11">
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_5">
+               <property name="spacing">
+                <number>0</number>
+               </property>
                <item>
                 <widget class="QLabel" name="QLabel_webcam_display_2">
                  <property name="sizePolicy">
@@ -325,6 +303,12 @@ color: rgb(0, 0, 0);</string>
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>500</width>
+                   <height>600</height>
+                  </size>
                  </property>
                  <property name="maximumSize">
                   <size>

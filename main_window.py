@@ -32,7 +32,7 @@ class FilterMe(QMainWindow):
         #setup the UI using self
         self.ui.setupUi(self)
         #set stacked widget to page 24 (main filter page) ERROR doesnt show page
-        self.ui.stackedWidget.setCurrentWidget(self.ui.page_23)  # or the correct page object
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)  # or the correct page object
 
 
         # set window title using self ( self = window UI)
@@ -127,7 +127,7 @@ class FilterMe(QMainWindow):
         self.ui.QLabel_webcam_display_2.setPixmap(pixmap)
 
         # Switch to the preview page
-        self.ui.stackedWidget.setCurrentWidget(self.ui.page_24)
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_prev)
 
     def save_preview_image(self):
         if not hasattr(self, 'preview_frame'):
@@ -153,14 +153,14 @@ class FilterMe(QMainWindow):
         # clear the username label before returnin to home page
         self.ui.QLineEdit_insert_username.clear()
         # Switch back to home/camera page
-        self.ui.stackedWidget.setCurrentWidget(self.ui.page_23)
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
 
     def delete_preview_image(self):
         self.preview_frame = None
         # clear the username label before returnin to home page
         self.ui.QLineEdit_insert_username.clear()
         # Switch back to home/camera page
-        self.ui.stackedWidget.setCurrentWidget(self.ui.page_23)
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
 
   
 
