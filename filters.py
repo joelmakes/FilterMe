@@ -1,39 +1,41 @@
 # apply image filters using OpenCV
 import cv2
-
-import numpy as np
-
+import numpy as np  # NumPy lets us easily create and work with arrays, which are like tables of numbers for images
 
 class Filters():
-    #set class constructor
+    # This is the setup for the Filters class. It doesn't need to do anything special when starting.
     def __init__(self):
         pass
-    
-    #apply rio de janeiro filter function
+
+    # This function adds a "Rio de Janeiro" color effect to the image.
     def apply_rio_de_janeiro(self, frame):
-        # Step 1: Brightness & Contrast
+        # Step 1: Make the image brighter and increase contrast so colors stand out more.
         frame = cv2.convertScaleAbs(frame, alpha=1.2, beta=10)
 
-        # Step 2: Create gradient overlay
-        height, width = frame.shape[:2]
-        top_color = np.array([128, 0, 128], dtype=np.uint8)   # Purple (BGR)
-        bottom_color = np.array([203, 192, 255], dtype=np.uint8) # Pink (BGR)
+        # Step 2: Make a gradient (smooth color change) from purple at the top to pink at the bottom.
+        height, width = frame.shape[:2]  # Get the image size
+        # These are the colors for the top and bottom of the gradient, written as BGR (Blue, Green, Red)
+        top_color = np.array([128, 0, 128], dtype=np.uint8)   # Purple
+        bottom_color = np.array([203, 192, 255], dtype=np.uint8) # Pink
+        # Make a blank image (all zeros) the same size as the frame, to hold the gradient
         gradient = np.zeros((height, width, 3), dtype=np.uint8)
+        # Fill each row of the gradient with a color that is a mix between purple and pink
         for y in range(height):
-            ratio = y / height
-            color = (1 - ratio) * top_color + ratio * bottom_color
-            gradient[y, :] = color
+            ratio = y / height  # This goes from 0 at the top to 1 at the bottom
+            color = (1 - ratio) * top_color + ratio * bottom_color  # Mix the two colors
+            gradient[y, :] = color  # Set the whole row to this color
 
-        # Step 3: Linear blending
+        # Step 3: Blend the original image and the gradient together.
+        # 0.7 means the original image is stronger, 0.3 means the gradient is lighter.
         blended = cv2.addWeighted(frame, 0.7, gradient, 0.3, 0)
 
         return blended
-    
-    #Use opencv pencilSketch for sketch effect from openccv contrib module
+
+    # This function makes the image look like a pencil sketch.
     def apply_sketch(self, frame):
-           # pencilSketch returns two images: grayscale and color
-           dst_gray, dst_color = cv2.pencilSketch(
-               frame, sigma_s=3, sigma_r=0.11, shade_factor=0.09
-           )
-            # Return the grayscale sketch as a 3-channel image for consistency
-           return cv2.cvtColor(dst_gray, cv2.COLOR_GRAY2BGR)
+        # OpenCV's pencilSketch gives us two images: one in black and white, one in color.
+        dst_gray, dst_color = cv2.pencilSketch(
+            frame, sigma_s=3, sigma_r=0.11, shade_factor=0.09
+        )
+        # We use the black and white sketch, but change it to have 3 color channels so it works everywhere in our app.
+        return cv2.cvtColor(dst_gray, cv2.COLOR_GRAY2BGR)
