@@ -42,7 +42,7 @@ class FilterMe(QMainWindow):
         self.filters = Filters()
 
         #once rio button is clicked, run apply_grayscale_filter function from filters.py
-        self.ui.button_rio.clicked.connect(self.apply_grayscale_filter)
+        self.ui.button_rio.clicked.connect(self.apply_rio_de_janeiro)
         #once sketch button is clicked, run apply_sketch_filter function from filters.py
         self.ui.button_sketch.clicked.connect(self.apply_sketch_filter)
 
@@ -79,8 +79,8 @@ class FilterMe(QMainWindow):
             self.aspect_ratio = 16/9  
     
     #apply grayscale filter function
-    def apply_grayscale_filter(self):
-        self.current_filter = self.filters.apply_grayscale
+    def apply_rio_de_janeiro(self):
+        self.current_filter = self.filters.apply_rio_de_janeiro
     #apply sketch filter function
     def apply_sketch_filter(self):
         self.current_filter = self.filters.apply_sketch
