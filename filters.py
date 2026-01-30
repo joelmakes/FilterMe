@@ -30,12 +30,14 @@ class Filters():
         blended = cv2.addWeighted(frame, 0.7, gradient, 0.3, 0)
 
         # Add text label to the image
-        text = "Rio De Janeiro"
-        position = (200, 300)  # x, y coordinates
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        font_scale = 1
-        color = (255, 255, 255)  # White text in BGR
-        thickness = 1
+        text = "Rio De Janeiro"  # The text string to display on the image
+        # position is where the text will start (x from left, y from top)
+        position = (200, 300)  # x, y coordinates (change these to move the text)
+        font = cv2.FONT_HERSHEY_SIMPLEX  # The style of the text
+        font_scale = 1  # How big the text will be (1 is normal size)
+        color = (255, 255, 255)  # The color of the text in BGR (here, white)
+        thickness = 1  # How thick the letters will be
+        # This function draws the text onto the image at the given position
         cv2.putText(blended, text, position, font, font_scale, color, thickness, cv2.LINE_AA)
 
         return blended
