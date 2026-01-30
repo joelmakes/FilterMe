@@ -10,7 +10,7 @@ class Filters():
     # This function adds a "Rio de Janeiro" color effect to the image.
     def apply_rio_de_janeiro(self, frame):
         # Step 1: Make the image brighter and increase contrast so colors stand out more.
-        frame = cv2.convertScaleAbs(frame, alpha=1.2, beta=10)
+        frame = cv2.convertScaleAbs(frame, alpha=.8, beta=25)
 
         # Step 2: Make a gradient (smooth color change) from purple at the top to pink at the bottom.
         height, width = frame.shape[:2]  # Get the image size
