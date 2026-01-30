@@ -35,14 +35,5 @@ class Filters():
            dst_gray, dst_color = cv2.pencilSketch(
                frame, sigma_s=3, sigma_r=0.11, shade_factor=0.09
            )
-           # Return the grayscale sketch as a 3-channel image for consistency
+            # Return the grayscale sketch as a 3-channel image for consistency
            return cv2.cvtColor(dst_gray, cv2.COLOR_GRAY2BGR)
-    
-    # def apply_sketch(self, frame):
-    #     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    #     blur = cv2.medianBlur(gray, 5)
-    #     sketch = cv2.adaptiveThreshold(
-    #         blur, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
-    #         cv2.THRESH_BINARY, 9, 9
-    #     )
-    #     return cv2.cvtColor(sketch, cv2.COLOR_GRAY2BGR)
