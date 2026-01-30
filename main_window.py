@@ -26,11 +26,14 @@ class FilterMe(QMainWindow):
     def __init__(self):
         # Call the QmainWindow constructor
         super().__init__()
-            
+        
         # Store class ui to -> imported UI file from py file
         self.ui = Ui_Filter_Me()
         #setup the UI using self
         self.ui.setupUi(self)
+        #set stacked widget to page 24 (main filter page) ERROR doesnt show page
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_23)  # or the correct page object
+
 
         # set window title using self ( self = window UI)
         self.setWindowTitle("FilterMe - Beta Edition")
@@ -40,10 +43,15 @@ class FilterMe(QMainWindow):
 
         #once rio button is clicked, run apply_grayscale_filter function from filters.py
         self.ui.button_rio.clicked.connect(self.apply_grayscale_filter)
-        #once sequoia button is clicked, run apply_sequoia_filter function from filters.py
-        self.ui.button_sketch.clicked.connect(self.apply_sequoia_filter)
+        #once sketch button is clicked, run apply_sketch_filter function from filters.py
+        self.ui.button_sketch.clicked.connect(self.apply_sketch_filter)
 
-        self.ui.button_take_picture.clicked.connect(self.take_picture)
+        # Connect take photo button to show preview page
+        self.ui.button_take_photo.clicked.connect(self.show_preview_page)
+
+        # Connect save and delete buttons on preview page to functions
+        self.ui.pushButton_save.clicked.connect(self.save_preview_image)
+        self.ui.pushButton_delete.clicked.connect(self.delete_preview_image)
 
         # Start the webcam (camera 0 is the default camera)
         self.cap = cv2.VideoCapture(0)
@@ -58,20 +66,24 @@ class FilterMe(QMainWindow):
         # Get camera aspect ratio
         ret, frame = self.cap.read()
         if ret:
+            #get height, width, from picture frame
             h, w, _ = frame.shape
             if h > 0:
+                #if height is greater than 0, set aspect ratio of current picture
                 self.aspect_ratio = w / h
             else:
+                #set default ratio if height is zero or less than 
                 self.aspect_ratio = 16/9  # fallback
         else:
-            self.aspect_ratio = 16/9  # fallback
+            #fall back if image couldnt be read set default ratio
+            self.aspect_ratio = 16/9  
     
-      #apply grayscale filter function
+    #apply grayscale filter function
     def apply_grayscale_filter(self):
         self.current_filter = self.filters.apply_grayscale
-
-    def apply_sequoia_filter(self):
-        self.current_filter = self.filters.apply_sepia
+    #apply sketch filter function
+    def apply_sketch_filter(self):
+        self.current_filter = self.filters.apply_sketch
 
     def update_frame(self):
         # Get a new image from the webcam
@@ -80,42 +92,75 @@ class FilterMe(QMainWindow):
                 # Apply current filter if set
             if hasattr(self, 'current_filter') and self.current_filter:
                 frame = self.current_filter(frame)
-            # Convert BGR to RGB
-            rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            h, w, ch = rgb_image.shape
-            bytes_per_line = ch * w
-            qt_image = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
-            pixmap = QPixmap.fromImage(qt_image)
-            # Scale pixmap to fit label while keeping aspect ratio
-            scaled_pixmap = pixmap.scaled(self.ui.QLabel_webcam_display.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            self.ui.QLabel_webcam_display.setPixmap(scaled_pixmap)
-    
-    def take_picture(self):
-    # Get the current frame
+                # Convert the frame and Qlabel size to QPixmap 
+            pixmap = self.frame_to_pixmap(frame, self.ui.QLabel_webcam_display.size())
+            # set the converted pixmap to display on the QLabel
+            self.ui.QLabel_webcam_display.setPixmap(pixmap)
+
+    #change opencv frame to qt pixmap (taking in picture frame, QLabel size on qt designer)
+    def frame_to_pixmap(self, frame, size=None):
+        rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        h, w, ch = rgb_image.shape
+        bytes_per_line = ch * w
+        qt_image = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
+        pixmap = QPixmap.fromImage(qt_image)
+        if size:
+            pixmap = pixmap.scaled(size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        return pixmap
+
+
+    def show_preview_page(self):
+        # Get the current frame
         ret, frame = self.cap.read()
         if not ret:
             return  # Optionally show an error message
 
-        # Get the user name from the text input
-        user_name = self.ui.lineEdit_user_name.text().strip()
-        if not user_name:
-            user_name = "user"
+        # Apply current filter if set
+        if hasattr(self, 'current_filter') and self.current_filter:
+            frame = self.current_filter(frame)
 
-        # Sanitize filename
+        # Store the frame for saving
+        self.preview_frame = frame
+
+        # Show the frame in the preview QLabel
+        pixmap = self.frame_to_pixmap(frame, self.ui.QLabel_webcam_display_2.size())
+        self.ui.QLabel_webcam_display_2.setPixmap(pixmap)
+
+        # Switch to the preview page
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_24)
+
+    def save_preview_image(self):
+        if not hasattr(self, 'preview_frame'):
+            return
+        
+        frame = self.preview_frame
+        user_name = self.ui.QLineEdit_insert_username.text().strip()
+
+        if not user_name:
+            user_name = "FilterMe_Photo"
+
         safe_name = "".join(c for c in user_name if c.isalnum() or c in (' ', '_', '-')).rstrip()
         filename = f"{safe_name}.png"
-
-        # Get Pictures directory or fallback to home
         pictures_dir = Path.home() / "Pictures"
+
         if not pictures_dir.exists():
             pictures_dir = Path.home()
+
         save_path = pictures_dir / filename
-
-        # Save the image
         cv2.imwrite(str(save_path), frame)
-
-        # Optionally, show a message or open the folder
         print(f"Saved picture to: {save_path}")
+        
+        # clear the username label before returnin to home page
+        self.ui.QLineEdit_insert_username.clear()
+        # Switch back to home/camera page
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_23)
+
+    def delete_preview_image(self):
+        self.preview_frame = None
+        # clear the username label before returnin to home page
+        self.ui.QLineEdit_insert_username.clear()
+        # Switch back to home/camera page
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_23)
 
   
 
