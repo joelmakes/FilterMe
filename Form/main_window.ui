@@ -170,7 +170,7 @@ background-color: rgb(59, 59, 59);
                    </size>
                   </property>
                   <property name="text">
-                   <string>Rio de Janeiro</string>
+                   <string>Rio De Janeiro</string>
                   </property>
                  </widget>
                 </item>
