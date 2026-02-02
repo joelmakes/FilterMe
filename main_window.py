@@ -3,14 +3,14 @@
 # OpenCV-Contrib - modules for OpenCV pencil sketch filter
 # Run Window- python main.py
 
-import cv2
 from pathlib import Path
 
-from gen.gen_main_window import Ui_Filter_Me
+import cv2
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtGui import QImage, QPixmap
 from PySide6.QtWidgets import QMainWindow, QLabel
 
+from gen.gen_main_window import Ui_Filter_Me
 from filters import Filters
 
 
