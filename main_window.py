@@ -14,10 +14,8 @@ from PySide6.QtWidgets import QMainWindow, QLabel
 from filters import Filters
 
 
-# inherit from Qmaninwindow to customezie, and add functionality
 class FilterMe(QMainWindow):
     def __init__(self):
-        # Call the QmainWindow constructor
         super().__init__()
 
         self.ui = Ui_Filter_Me()
@@ -48,13 +46,12 @@ class FilterMe(QMainWindow):
 
         self.timer.start(30)
 
-        # Get camera aspect ratio
         ret, frame = self.cap.read()
         if ret:
-            # get height, width, from picture frame
             h, w, _ = frame.shape
             if h > 0:
-                # if height is greater than 0, set aspect ratio of current picture
+                # if height is greater than 0
+                # set aspect ratio of current picture
                 self.aspect_ratio = w / h
             else:
                 # set default
@@ -116,7 +113,8 @@ class FilterMe(QMainWindow):
 
         self.preview_frame = frame
 
-        pixmap = self.frame_to_pixmap(frame, self.ui.QLabel_webcam_display_2.size())
+        label_size = self.ui.QLabel_webcam_display_2.size()
+        pixmap = self.frame_to_pixmap(frame, label_size)
         self.ui.QLabel_webcam_display_2.setPixmap(pixmap)
 
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_prev)
@@ -136,7 +134,10 @@ class FilterMe(QMainWindow):
 
         # Make the filename safe:
         # only allow letters, numbers, spaces, underscores, and dashes
-        safe_name = "".join(c for c in user_name if c.isalnum() or c in (' ', '_', '-')).rstrip()
+        safe_name = "".join(
+            c for c in user_name
+            if c.isalnum() or c in (' ', '_', '-')
+        ).rstrip()
         filename = f"{safe_name}.png"
 
         pictures_dir = Path.home() / "Pictures"
