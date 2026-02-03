@@ -7,8 +7,8 @@ from pathlib import Path
 
 import cv2
 from PySide6.QtCore import QTimer, Qt
-from PySide6.QtGui import QImage, QPixmap
-from PySide6.QtWidgets import QMainWindow, QLabel
+from PySide6.QtGui import QImage, QPixmap, QIcon
+from PySide6.QtWidgets import QMainWindow, QLabel, QMessageBox
 
 from gen.gen_main_window import Ui_Filter_Me
 from filters import Filters
@@ -23,6 +23,7 @@ class FilterMe(QMainWindow):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
 
         self.setWindowTitle("FilterMe")
+        self.setWindowIcon(QIcon("FilterMe/FilterMeIcon.png"))
 
         self.filters = Filters()
 
@@ -34,9 +35,9 @@ class FilterMe(QMainWindow):
 
         self.ui.button_take_photo.clicked.connect(self.show_preview_page)
 
-        self.ui.pushButton_save.clicked.connect(self.save_preview_image)
+        self.ui.button_save.clicked.connect(self.save_preview_image)
 
-        self.ui.pushButton_delete.clicked.connect(self.delete_preview_image)
+        self.ui.button_delete.clicked.connect(self.delete_preview_image)
 
         self.cap = cv2.VideoCapture(0)
 
@@ -102,6 +103,14 @@ class FilterMe(QMainWindow):
         return pixmap  # Return the final pixmap to be displayed
 
     def show_preview_page(self):
+        if not self.ui.QLineEdit_insert_username.text().strip():
+            QMessageBox.warning(
+                self,
+                "Input Required",
+                "Please enter a username before taking a picture."
+            )
+            return
+
         ret, frame = self.cap.read()
 
         if not ret:
