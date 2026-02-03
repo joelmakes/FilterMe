@@ -96,18 +96,18 @@ class FilterMe(QMainWindow):
         self.reset_filter_buttons()
 
     def update_filter_buttons(self, selected):
-        for key, btn in self.filter_buttons.items():
+        for key, button in self.filter_buttons.items():
             if key == selected:
-                btn.setStyleSheet(self.selected_button_style)
-                btn.setEnabled(False)
+                button.setStyleSheet(self.selected_button_style)
+                button.setEnabled(False)
             else:
-                btn.setStyleSheet(self.default_button_style)
-                btn.setEnabled(True)
+                button.setStyleSheet(self.default_button_style)
+                button.setEnabled(True)
 
     def reset_filter_buttons(self):
-        for btn in self.filter_buttons.values():
-            btn.setStyleSheet(self.default_button_style)
-            btn.setEnabled(True)
+        for button in self.filter_buttons.values():
+            button.setStyleSheet(self.default_button_style)
+            button.setEnabled(True)
 
     def update_frame(self):
         # Get a new image from the webcam
