@@ -23,15 +23,23 @@ class FilterMe(QMainWindow):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
 
         self.setWindowTitle("FilterMe")
-        self.setWindowIcon(QIcon("FilterMe/FilterMeIcon.png"))
+        self.setWindowIcon(QIcon("assets/FilterMeIcon3.ico"))
 
         self.filters = Filters()
 
+        # Connect filter buttons
         self.ui.button_rio.clicked.connect(self.apply_rio_de_janeiro)
-
         self.ui.button_sketch.clicked.connect(self.apply_sketch_filter)
-
         self.ui.button_reset.clicked.connect(self.reset_filter)
+
+        # Store filter buttons for easy access
+        self.filter_buttons = {
+            'rio': self.ui.button_rio,
+            'sketch': self.ui.button_sketch
+        }
+        self.default_button_style = self.ui.button_rio.styleSheet()
+        self.selected_button_style = "background-color: #000000; color: white;"
+        self.reset_filter_buttons()
 
         self.ui.button_take_photo.clicked.connect(self.show_preview_page)
 
@@ -61,14 +69,45 @@ class FilterMe(QMainWindow):
             # fall back if image couldnt be read set default ratio
             self.aspect_ratio = 16/9
 
+        # Set and ensure the filterme_pictures folder exists inside the project
+        filterme_pictures = Path.cwd() / "filterme_pictures"
+        filterme_pictures.mkdir(exist_ok=True)
+        self.save_locations = {
+            "FilterMe Pictures": str(filterme_pictures),
+            "Pictures": str(Path.home() / "Pictures"),
+            "Documents": str(Path.home() / "Documents"),
+            "Desktop": str(Path.home() / "Desktop"),
+        }
+        self.ui.comboBox_save_location.currentIndexChanged.connect(
+            self.update_save_path_label
+        )
+        self.update_save_path_label()  # Set initial path
+
     def apply_rio_de_janeiro(self):
         self.current_filter = self.filters.apply_rio_de_janeiro
+        self.update_filter_buttons('rio')
 
     def apply_sketch_filter(self):
         self.current_filter = self.filters.apply_sketch
+        self.update_filter_buttons('sketch')
 
     def reset_filter(self):
         self.current_filter = None
+        self.reset_filter_buttons()
+
+    def update_filter_buttons(self, selected):
+        for key, btn in self.filter_buttons.items():
+            if key == selected:
+                btn.setStyleSheet(self.selected_button_style)
+                btn.setEnabled(False)
+            else:
+                btn.setStyleSheet(self.default_button_style)
+                btn.setEnabled(True)
+
+    def reset_filter_buttons(self):
+        for btn in self.filter_buttons.values():
+            btn.setStyleSheet(self.default_button_style)
+            btn.setEnabled(True)
 
     def update_frame(self):
         # Get a new image from the webcam
@@ -103,6 +142,7 @@ class FilterMe(QMainWindow):
         return pixmap  # Return the final pixmap to be displayed
 
     def show_preview_page(self):
+        # Check if username is entered (if not, show warning)
         if not self.ui.QLineEdit_insert_username.text().strip():
             QMessageBox.warning(
                 self,
@@ -126,6 +166,11 @@ class FilterMe(QMainWindow):
         pixmap = self.frame_to_pixmap(frame, label_size)
         self.ui.QLabel_webcam_display_2.setPixmap(pixmap)
 
+        # Always reset combo box to default 'FilterMe Pictures'
+        index = self.ui.comboBox_save_location.findText("FilterMe Pictures")
+        if index != -1:
+            self.ui.comboBox_save_location.setCurrentIndex(index)
+
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_prev)
 
     def save_preview_image(self):
@@ -137,10 +182,6 @@ class FilterMe(QMainWindow):
 
         user_name = self.ui.QLineEdit_insert_username.text().strip()
 
-        # If the user didn't enter a name, use a default name
-        if not user_name:
-            user_name = "FilterMe_Photo"
-
         # Make the filename safe:
         # only allow letters, numbers, spaces, underscores, and dashes
         safe_name = "".join(
@@ -149,15 +190,13 @@ class FilterMe(QMainWindow):
         ).rstrip()
         filename = f"{safe_name}.png"
 
-        pictures_dir = Path.home() / "Pictures"
+        # Get selected save location from combo box
+        location = self.ui.comboBox_save_location.currentText()
+        folder_path = Path(self.save_locations.get(location, str(Path.cwd())))
+        folder_path.mkdir(exist_ok=True)
+        save_path = folder_path / filename
 
-        # If the Pictures folder doesn't exist, use the home folder instead
-        if not pictures_dir.exists():
-            pictures_dir = Path.home()
-
-        save_path = pictures_dir / filename
         cv2.imwrite(str(save_path), frame)
-        print(f"Saved picture to: {save_path}")
 
         self.ui.QLineEdit_insert_username.clear()
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
@@ -166,6 +205,13 @@ class FilterMe(QMainWindow):
         self.preview_frame = None
         self.ui.QLineEdit_insert_username.clear()
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
+
+    def update_save_path_label(self):
+        location = self.ui.comboBox_save_location.currentText()
+        path = self.save_locations.get(location, "")
+        self.ui.label_path.setText(path)
+        # Optionally, for very long paths,
+        # use eliding or setWordWrap(True) in Qt Designer
 
 
 # Custom QLabel to maintain aspect ratio
