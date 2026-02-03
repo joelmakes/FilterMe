@@ -476,7 +476,9 @@ border-color: rgb(255, 255, 255);
                   </property>
                   <property name="styleSheet">
                    <string notr="true">color: rgb(255, 255, 255);
-font: 12pt &quot;Segoe UI&quot;;</string>
+selection-background-color: rgb(99, 10, 255);
+font: 12pt &quot;Segoe UI&quot;;
+</string>
                   </property>
                   <property name="sizeAdjustPolicy">
                    <enum>QComboBox::SizeAdjustPolicy::AdjustToContentsOnFirstShow</enum>
