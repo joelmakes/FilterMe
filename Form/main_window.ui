@@ -69,7 +69,7 @@ background-color: rgb(59, 59, 59);
 </string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_home">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -458,25 +458,60 @@ border-color: rgb(255, 255, 255);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="button_selector">
+                 <widget class="QComboBox" name="comboBox">
                   <property name="minimumSize">
                    <size>
-                    <width>140</width>
-                    <height>40</height>
+                    <width>200</width>
+                    <height>50</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>150</width>
+                    <width>200</width>
                     <height>50</height>
                    </size>
                   </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LayoutDirection::LeftToRight</enum>
+                  </property>
                   <property name="styleSheet">
-                   <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 12pt &quot;Segoe UI&quot;;</string>
                   </property>
-                  <property name="text">
-                   <string>Select Path</string>
+                  <property name="sizeAdjustPolicy">
+                   <enum>QComboBox::SizeAdjustPolicy::AdjustToContentsOnFirstShow</enum>
                   </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>16</width>
+                    <height>16</height>
+                   </size>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>FilterMe Folder</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Pictures</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Documents</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Desktop</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Home</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                </layout>
