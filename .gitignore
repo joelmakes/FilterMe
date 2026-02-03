@@ -1,3 +1,6 @@
+# Ignore user-generated photos folder
+filterme_pictures/
+
 # Ignore the virtual environment
 venv/
 .venv/
