@@ -39,6 +39,12 @@
 background-color: rgb(59, 59, 59);
 </string>
   </property>
+  <property name="iconSize">
+   <size>
+    <width>32</width>
+    <height>32</height>
+   </size>
+  </property>
   <property name="tabShape">
    <enum>QTabWidget::TabShape::Rounded</enum>
   </property>
@@ -59,7 +65,7 @@ background-color: rgb(59, 59, 59);
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_home">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -170,7 +176,9 @@ background-color: rgb(59, 59, 59);
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">background-color: rgb(194, 0, 0);</string>
+                   <string notr="true">background-color: rgb(249, 255, 12);
+color: rgb(0, 0, 0);
+font: 12pt &quot;Segoe UI&quot;;</string>
                   </property>
                   <property name="text">
                    <string>Reset</string>
@@ -191,6 +199,9 @@ background-color: rgb(59, 59, 59);
                     <height>50</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+                  </property>
                   <property name="text">
                    <string>Rio De Janeiro</string>
                   </property>
@@ -209,6 +220,9 @@ background-color: rgb(59, 59, 59);
                     <width>400</width>
                     <height>50</height>
                    </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
                   </property>
                   <property name="text">
                    <string>Sketch</string>
@@ -255,7 +269,8 @@ background-color: rgb(59, 59, 59);
                  </property>
                  <property name="styleSheet">
                   <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(0, 0, 0);</string>
+color: rgb(0, 0, 0);
+font: 12pt &quot;Segoe UI&quot;;</string>
                  </property>
                  <property name="placeholderText">
                   <string>Enter Name Here</string>
@@ -282,6 +297,9 @@ color: rgb(0, 0, 0);</string>
                    <width>1300</width>
                    <height>40</height>
                   </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
                  </property>
                  <property name="text">
                   <string>Take Picture</string>
@@ -375,10 +393,92 @@ border-color: rgb(255, 255, 255);
             <height>300</height>
            </size>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
            <property name="sizeConstraint">
             <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
            </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QWidget" name="widget" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <item>
+                 <widget class="QLabel" name="label_location">
+                  <property name="minimumSize">
+                   <size>
+                    <width>50</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+                  </property>
+                  <property name="text">
+                   <string>Location:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_path">
+                  <property name="minimumSize">
+                   <size>
+                    <width>500</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>500</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+                  </property>
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="button_selector">
+                  <property name="minimumSize">
+                   <size>
+                    <width>140</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+                  </property>
+                  <property name="text">
+                   <string>Select Path</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_9">
              <property name="spacing">
@@ -388,7 +488,7 @@ border-color: rgb(255, 255, 255);
               <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
              </property>
              <item>
-              <widget class="QPushButton" name="pushButton_delete">
+              <widget class="QPushButton" name="button_delete">
                <property name="minimumSize">
                 <size>
                  <width>300</width>
@@ -402,7 +502,8 @@ border-color: rgb(255, 255, 255);
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(194, 0, 0);</string>
+                <string notr="true">background-color: rgb(194, 0, 0);
+font: 12pt &quot;Segoe UI&quot;;</string>
                </property>
                <property name="text">
                 <string>Delete</string>
@@ -410,7 +511,7 @@ border-color: rgb(255, 255, 255);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_save">
+              <widget class="QPushButton" name="button_save">
                <property name="minimumSize">
                 <size>
                  <width>300</width>
@@ -424,7 +525,8 @@ border-color: rgb(255, 255, 255);
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(0, 236, 0);</string>
+                <string notr="true">background-color: rgb(0, 236, 0);
+font: 12pt &quot;Segoe UI&quot;;</string>
                </property>
                <property name="text">
                 <string>Save</string>
