@@ -458,7 +458,7 @@ border-color: rgb(255, 255, 255);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="comboBox">
+                 <widget class="QComboBox" name="comboBox_save_location">
                   <property name="minimumSize">
                    <size>
                     <width>200</width>
@@ -476,7 +476,7 @@ border-color: rgb(255, 255, 255);
                   </property>
                   <property name="styleSheet">
                    <string notr="true">color: rgb(255, 255, 255);
-selection-background-color: rgb(99, 10, 255);
+selection-background-color: rgb(59,59,59);
 font: 12pt &quot;Segoe UI&quot;;
 </string>
                   </property>
@@ -491,7 +491,7 @@ font: 12pt &quot;Segoe UI&quot;;
                   </property>
                   <item>
                    <property name="text">
-                    <string>FilterMe Folder</string>
+                    <string>FilterMe Pictures</string>
                    </property>
                   </item>
                   <item>
@@ -507,11 +507,6 @@ font: 12pt &quot;Segoe UI&quot;;
                   <item>
                    <property name="text">
                     <string>Desktop</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Home</string>
                    </property>
                   </item>
                  </widget>
