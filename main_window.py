@@ -73,29 +73,21 @@ class FilterMe(QMainWindow):
             # fall back if image couldnt be read set default ratio
             self.aspect_ratio = 16/9
 
-        # Set and ensure the filterme_pictures folder exists inside the project
-        filterme_pictures = Path.cwd() / "filterme_pictures"
-        filterme_pictures.mkdir(exist_ok=True)
-        self.save_locations = {
-            "FilterMe Pictures": str(filterme_pictures),
-            "Pictures": str(Path.home() / "Pictures"),
-            "Documents": str(Path.home() / "Documents"),
-            "Desktop": str(Path.home() / "Desktop"),
-            "Long Path": str(
-                Path.home() / "Documents" /
-                (
-                    "FilterMe Pictures With An Extremely Long And "
-                    "Unnecessarily Complicated Folder Name To Test "
-                    "Word Wrapping In The Qt Label Display For Very "
-                    "Long Paths That Might Otherwise Overflow Or Get "
-                    "Cut Off"
-                )
-            ),
-        }
-        self.ui.comboBox_save_location.currentIndexChanged.connect(
-            self.update_save_path_label
+        # Set up save folder selection
+        self.selected_save_folder = None
+        self.save_path_prompt = "Select Save Location ->"
+        self.ui.label_path.setText(self.save_path_prompt)
+        self.ui.button_save_selector.clicked.connect(self.select_save_folder)
+
+    def select_save_folder(self):
+        from PySide6.QtWidgets import QFileDialog
+        start_dir = self.selected_save_folder
+        folder = QFileDialog.getExistingDirectory(
+            self, "Select Save Folder", start_dir
         )
-        self.update_save_path_label()  # Set initial path
+        if folder:
+            self.selected_save_folder = folder
+            self.ui.label_path.setText(folder)
 
     def apply_rio_de_janeiro(self):
         self.current_filter = self.filters.apply_rio_de_janeiro
@@ -164,7 +156,7 @@ class FilterMe(QMainWindow):
             QMessageBox.warning(
                 self,
                 "Input Required",
-                "Please enter a username before taking a picture."
+                "Please enter a name before taking a picture."
             )
             return
 
@@ -183,16 +175,20 @@ class FilterMe(QMainWindow):
         pixmap = self.frame_to_pixmap(frame, label_size)
         self.ui.QLabel_webcam_display_2.setPixmap(pixmap)
 
-        # Always reset combo box to default 'FilterMe Pictures'
-        index = self.ui.comboBox_save_location.findText("FilterMe Pictures")
-        if index != -1:
-            self.ui.comboBox_save_location.setCurrentIndex(index)
-
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_prev)
 
     def save_preview_image(self):
         # Check if there is a preview frame to save
         if not hasattr(self, 'preview_frame'):
+            return
+
+        # Check if a save folder is selected
+        if not self.selected_save_folder:
+            QMessageBox.warning(
+                self,
+                "Save Location Required",
+                "Please select a folder to save your image."
+            )
             return
 
         frame = self.preview_frame
@@ -201,32 +197,40 @@ class FilterMe(QMainWindow):
 
         # Make the filename safe:
         # only allow letters, numbers, spaces, underscores, and dashes
+
         safe_name = "".join(
             c for c in user_name
             if c.isalnum() or c in (' ', '_', '-')
         ).rstrip()
+        # If the name hasa invalidy characters set to default name
+        if not safe_name:
+            default_name = "FilterMe_Picture"
+            QMessageBox.warning(
+                self,
+                "Invalid Username",
+                f"Invalid name. Setting to default: {default_name}"
+            )
+            safe_name = default_name
         filename = f"{safe_name}.png"
 
-        # Get selected save location from combo box
-        location = self.ui.comboBox_save_location.currentText()
-        folder_path = Path(self.save_locations.get(location, str(Path.cwd())))
+        # Use the selected save folder
+        folder_path = Path(self.selected_save_folder)
         folder_path.mkdir(exist_ok=True)
         save_path = folder_path / filename
 
         cv2.imwrite(str(save_path), frame)
 
         self.ui.QLineEdit_insert_username.clear()
+        self.selected_save_folder = None
+        self.ui.label_path.setText(self.save_path_prompt)
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
 
     def delete_preview_image(self):
         self.preview_frame = None
         self.ui.QLineEdit_insert_username.clear()
+        self.selected_save_folder = None
+        self.ui.label_path.setText(self.save_path_prompt)
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
-
-    def update_save_path_label(self):
-        location = self.ui.comboBox_save_location.currentText()
-        path = self.save_locations.get(location, "")
-        self.ui.label_path.setText(path)
 
 
 # Custom QLabel to maintain aspect ratio
