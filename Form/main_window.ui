@@ -437,13 +437,13 @@ border-color: rgb(255, 255, 255);
                   <property name="minimumSize">
                    <size>
                     <width>500</width>
-                    <height>60</height>
+                    <height>80</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
                     <width>500</width>
-                    <height>60</height>
+                    <height>80</height>
                    </size>
                   </property>
                   <property name="styleSheet">
@@ -454,6 +454,9 @@ border-color: rgb(255, 255, 255);
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignmentFlag::AlignCenter</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -507,6 +510,11 @@ font: 12pt &quot;Segoe UI&quot;;
                   <item>
                    <property name="text">
                     <string>Desktop</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Long Path</string>
                    </property>
                   </item>
                  </widget>
