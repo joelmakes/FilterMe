@@ -39,6 +39,10 @@ class FilterMe(QMainWindow):
         }
         self.default_button_style = self.ui.button_rio.styleSheet()
         self.selected_button_style = "background-color: #000000; color: white;"
+        self.reset_selected_style = (
+            "background-color: rgb(60, 0, 120); "
+            "color: white;"
+        )
         self.reset_filter_buttons()
 
         self.ui.button_take_photo.clicked.connect(self.show_preview_page)
@@ -77,6 +81,16 @@ class FilterMe(QMainWindow):
             "Pictures": str(Path.home() / "Pictures"),
             "Documents": str(Path.home() / "Documents"),
             "Desktop": str(Path.home() / "Desktop"),
+            "Long Path": str(
+                Path.home() / "Documents" /
+                (
+                    "FilterMe Pictures With An Extremely Long And "
+                    "Unnecessarily Complicated Folder Name To Test "
+                    "Word Wrapping In The Qt Label Display For Very "
+                    "Long Paths That Might Otherwise Overflow Or Get "
+                    "Cut Off"
+                )
+            ),
         }
         self.ui.comboBox_save_location.currentIndexChanged.connect(
             self.update_save_path_label
@@ -98,7 +112,10 @@ class FilterMe(QMainWindow):
     def update_filter_buttons(self, selected):
         for key, button in self.filter_buttons.items():
             if key == selected:
-                button.setStyleSheet(self.selected_button_style)
+                if key == 'reset':
+                    button.setStyleSheet(self.reset_selected_style)
+                else:
+                    button.setStyleSheet(self.selected_button_style)
                 button.setEnabled(False)
             else:
                 button.setStyleSheet(self.default_button_style)
@@ -210,8 +227,6 @@ class FilterMe(QMainWindow):
         location = self.ui.comboBox_save_location.currentText()
         path = self.save_locations.get(location, "")
         self.ui.label_path.setText(path)
-        # Optionally, for very long paths,
-        # use eliding or setWordWrap(True) in Qt Designer
 
 
 # Custom QLabel to maintain aspect ratio
