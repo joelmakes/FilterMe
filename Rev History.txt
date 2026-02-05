@@ -1,0 +1,18 @@
+*-------------------------------------------------------------------------------------------------------
+| FilterME — Release Notes / Revision History
+*-------------------------------------------------------------------------------------------------------
+v1.0.0 — Introduces FilterMe V1.0 software which includes the following.
+	- Summary: Initial Release (02-05-2026)
+		- Added
+			- Webcam display
+			- Filters available: Rio De Janeiro, Sketch, and Reset
+			- Option to insert a custom file save name
+			- Preview picture with or without filter
+			- Delete or save taken pictures
+			- Select picture save location on device
+		- Changed
+			- File saving now uses a save location dialog instead of preset paths
+		- Fixed
+			- N/A
+		- Known Issues
+			- Users can take pictures with invalid usernames (e.g., $%&*). On save, a popup resets the name to FilterMe_Pictures. Taking pictures should require a valid username.
