@@ -10,8 +10,7 @@ v1.0.0 — Introduces FilterMe V1.0 software which includes the following.
 			- Preview picture with or without filter
 			- Delete or save taken pictures
 			- Select picture save location on device
-		- Changed
-			- File saving now uses a save location dialog instead of preset paths
+			- File saving uses a save location dialog instead of preset paths
 		- Fixed
 			- N/A
 		- Known Issues
