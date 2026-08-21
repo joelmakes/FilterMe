@@ -1,10 +1,16 @@
+import os
 import sys
 
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QSplashScreen
 
 from main_window import FilterMe
 
 Version = "1.0.0"
+
+
+def resource_path(relative_path):
+    base = getattr(sys, "_MEIPASS", os.path.abspath("."))
+    return os.path.join(base, relative_path)
 
 if __name__ == "__main__":
 
@@ -16,7 +22,16 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
 
+    # Show splash
+    splash = QSplashScreen(QPixmap(resource_path("assets/splash.png")))
+    splash.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
+    splash.show()
+    app.processEvents()
+
+    # Startup work (this is where FilterMe opens the camera, etc.)
     window = FilterMe()
+
+    splash.finish(window)
     window.show()
 
     sys.exit(app.exec())
