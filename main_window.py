@@ -3,7 +3,9 @@
 # OpenCV-Contrib - modules for OpenCV pencil sketch filter
 # Run Window- python main.py
 
+import os
 from pathlib import Path
+import sys
 
 import cv2
 from PySide6.QtCore import QTimer, Qt
@@ -23,7 +25,12 @@ class FilterMe(QMainWindow):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
 
         self.setWindowTitle("FilterMe")
-        self.setWindowIcon(QIcon("assets/FilterMeIcon3.ico"))
+
+        def resource_path(relative_path):
+            base = getattr(sys, "_MEIPASS", os.path.abspath("."))
+            return os.path.join(base, relative_path)
+
+        self.setWindowIcon(QIcon(resource_path("assets/FilterMeIcon3.ico")))
 
         self.filters = Filters()
 
