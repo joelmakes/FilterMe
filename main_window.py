@@ -24,7 +24,7 @@ class FilterMe(QMainWindow):
         self.ui.setupUi(self)
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_home)
 
-        self.setWindowTitle("FilterMe")
+        self.setWindowTitle("Filter Me")
 
         def resource_path(relative_path):
             base = getattr(sys, "_MEIPASS", os.path.abspath("."))

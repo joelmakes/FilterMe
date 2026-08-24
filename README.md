@@ -1,12 +1,12 @@
 
 
-# FilterMe - Real-time Webcam Filters
+# Filter Me - Real-time Webcam Filters
 
-FilterMe is a PySide6 desktop app that applies real-time filters to your webcam using OpenCV. It features a modern Qt-based UI for launching, previewing, and saving filtered webcam images.
+Filter Me is a PySide6 desktop app that applies real-time filters to your webcam using OpenCV. It features a modern Qt-based UI for launching, previewing, and saving filtered webcam images.
 
 # Demo
 
-See below for a quick look at FilterMe's main screens and workflow:
+See below for a quick look at Filter Me's main screens and workflow:
 
 **Home Page**
 
